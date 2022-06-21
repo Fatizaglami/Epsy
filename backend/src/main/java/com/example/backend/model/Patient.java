@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -59,4 +60,31 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonIgnore
     private List<RendezVous> rendezVous;
+
+    @OneToMany(
+            targetEntity = Suivi.class,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(
+            name = "patient_id",
+            referencedColumnName = "id"
+    )
+    private Set<Suivi> suivis;
+
+
+
+    @OneToMany(
+            targetEntity = Doctor.class,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn
+            (
+                    name = "patient_id",
+                    referencedColumnName = "id"
+            )
+    private Set<Doctor> doctors;
 }

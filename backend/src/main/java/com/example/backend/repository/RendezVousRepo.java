@@ -1,7 +1,6 @@
 package com.example.backend.repository;
 
-import com.example.backend.model.RendezVous;
-import com.example.backend.model.RendezVousId;
+import com.example.backend.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
@@ -12,18 +11,28 @@ import java.util.List;
 
 public interface RendezVousRepo extends JpaRepository<RendezVous, RendezVousId> {
 
-    @Query("Select rv from RendezVous  rv join rv.doctor d where d.email = ?1 and rv.isConfirmed=true")
-    List<RendezVous> getRendezVousNotificationByDoctor(String idDoctor);
+    @Query(nativeQuery = true, value="call getRendezVousNotificationByDoctor(:idDoctor)")
+    List<IAppointmentNotification> getRendezVousNotificationByDoctor(String idDoctor);
 
-    @Procedure
-    Integer getAppointmentCountByDoctor(String idDoctor);
+    @Query(nativeQuery = true, value = "call getLatestAppointmentByDoctor(:idDoctor)")
+    List<IAppointment> getLatestAppointmentByDoctor(String idDoctor);
 
-    @Procedure
-    BigDecimal getAppointmentGrowthByDoctor(String idDoctor);
+    @Query(nativeQuery = true, value="call getAppointmentCountByDoctor(:idDoctor);")
+    List<ICount> getAppointmentCountByDoctor(String idDoctor);
 
+    @Query(nativeQuery = true, value="call getInvitationCountByDoctor(:idDoctor);")
+    List<ICount> getInvitationCountByDoctor(String idDoctor);
 
-    @Query(nativeQuery = true, value = "select rv.* from rendez_vous rv, doctor d " +
-            "where d.email=rv.doctor_email and d.email= :idDoctor " +
-            "order by rv.date desc limit 2")
-    List<RendezVous> getLatestAppointmentByDoctor(@Param("idDoctor") String idDoctor);
+    @Query(nativeQuery = true, value="call getAppointmentGrowthByDoctor(:idDoctor);")
+    List<IGrowthPercentage> getAppointmentGrowthByDoctor(String idDoctor);
+
+    @Query(nativeQuery = true, value="call getInvitationGrowthByDoctor(:idDoctor);")
+    List<IGrowthPercentage> getInvitationGrowthByDoctor(String idDoctor);
+
+    @Query(nativeQuery = true,value="call denyAppointment(:idDoctor,:idPatient,:date)")
+    void denyAppointment(String idDoctor,String idPatient,String date);
+
+    @Query(nativeQuery = true,value="call acceptAppointment(:idDoctor,:idPatient,:date)")
+    void acceptAppointment(String idDoctor,String idPatient,String date);
+
 }

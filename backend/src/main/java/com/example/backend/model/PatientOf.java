@@ -20,12 +20,12 @@ public class PatientOf {
 
     private Date dateDebut;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @MapsId("idDoctor")
     private Doctor doctor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @MapsId("idPatient")
     private Patient patient;

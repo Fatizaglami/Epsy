@@ -1,15 +1,16 @@
 package com.example.backend.controller;
 
 import com.example.backend.exception.ResourceNotFoundException;
-import com.example.backend.model.Patient;
+import com.example.backend.model.*;
 import com.example.backend.repository.PatientRepo;
+import com.example.backend.service.IPatientService;
 import com.example.backend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -25,41 +26,59 @@ public class PatientController {
     @Autowired
     PatientRepo patientRepo;
 
+    private final IPatientService patientService;
+
+    public PatientController(IPatientService patientService) {
+        this.patientService = patientService;
+    }
 
     //patient list of doc
-    @GetMapping("/patientof")
-    public List<Patient> getPatientOf(){
-        String idDoctor  = "doc@gmail.com";
+    @RequestMapping("/patientof")
+    public List<Patient> getPatientOf(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
         List<Patient> patients = service.findPatientByDoctor(idDoctor);
         return patients;
     }
 
     //search doc's patient by name or lastname
-    @GetMapping("/search/{fullname}")
-    public List<Patient> findPatientOfByName(@PathVariable String fullname){
-        String email = "doc@gmail.com";
-        return service.findPatientByFullname(email,fullname);
+    @RequestMapping("/search/{fullname}")
+    public List<Patient> findPatientOfByName(@PathVariable String fullname,Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        return service.findPatientByFullname(idDoctor,fullname);
     }
 
     //patient counts for current month
-    @GetMapping("/patientcount")
-    public Integer findPatientOfByName(){
-        String email = "doc2@gmail.com";
-        return service.getPatientCountByDoctor(email);
+    @RequestMapping("/patientcount")
+    public List<ICount> getPatientCountByDoctor(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        return service.getPatientCountByDoctor(idDoctor);
     }
 
     //patient count increase(positive,negative)
-    @GetMapping("/patientgrowth")
-    public BigDecimal getPatientCountGrowthByDoctor(){
-        String email = "doc2@gmail.com";
-        return service.getPatientGrowthByDoctor(email);
+    @RequestMapping("/patientgrowth")
+    public List<IGrowthPercentage> getPatientCountGrowthByDoctor(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        return service.getPatientGrowthByDoctor(idDoctor);
     }
 
     //4 new joined patients
-    @GetMapping("/newpatients")
-    public List<Patient> newJoinedPatientsByDoctor(){
-        String email = "doc2@gmail.com";
-        return service.getNewJoinedPatientsByDoctor(email);
+    @RequestMapping("/newpatients")
+    public List<Patient> newJoinedPatientsByDoctor(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        return service.getNewJoinedPatientsByDoctor(idDoctor);
+    }
+
+    //
+    @RequestMapping("/patientcountchart")
+    public List<IPatientCountChartPoint> getLatestAppointmentByDoctor(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        return service.getPatientCountChartByDoctor(idDoctor);
     }
     //get all patients
     @GetMapping
@@ -108,7 +127,24 @@ public class PatientController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/patients/{patientId}")
+    public Patient getPatient(@PathVariable String patientId) {
+        return patientService.getPatient(patientId);
+    }
 
+    @PutMapping("/patients/{patientId}")
+    public Patient updatePatient(@RequestBody @Valid Patient patient, @PathVariable String patientId) {
+        return patientService.updatePatient(patient, patientId);
+    }
+    // Get all suivi for patient
+    @GetMapping("/patients/{patientId}/suivis")
+    public List<Suivi> getAllSuivis(@PathVariable String patientId) {
+        return patientService.getAllSuivis(patientId);
+    }
 
-
+    // get Doctors for patient
+    @GetMapping("/patients/{patientId}/doctors")
+    public List<Doctor> getAllDoctors(@PathVariable String patientId) {
+        return patientService.getAllDoctors(patientId);
+    }
 }

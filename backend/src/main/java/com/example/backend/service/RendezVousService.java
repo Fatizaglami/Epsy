@@ -1,8 +1,6 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Appointment;
-import com.example.backend.model.Patient;
-import com.example.backend.model.RendezVous;
+import com.example.backend.model.*;
 import com.example.backend.repository.PatientRepo;
 import com.example.backend.repository.RendezVousRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +23,38 @@ public class RendezVousService {
     private PatientRepo patientRepo;
 
 
-    public Map<Date, Patient> getRendezVousNotificationParDoctor(String idDoctor){
-        List<RendezVous> rendezVous = rendezVousRepo.getRendezVousNotificationByDoctor(idDoctor);
-
-        Map<Date,Patient> results = new HashMap<>();
-
-        for (RendezVous rv : rendezVous){
-            results.put(rv.getId().getDate(), rv.getPatient());
-        }
-        return results;
+    public List<IAppointmentNotification> getRendezVousNotificationByDoctor(String idDoctor){
+        return rendezVousRepo.getRendezVousNotificationByDoctor(idDoctor);
     }
 
-    public Integer getAppointmentCountByDoctor(String idDoctor){
+    public List<ICount> getAppointmentCountByDoctor(String idDoctor){
         return rendezVousRepo.getAppointmentCountByDoctor(idDoctor);
     }
 
-    public BigDecimal getAppointmentGrowthByDoctor(String idDoctor){
+    public List<IGrowthPercentage> getAppointmentGrowthByDoctor(String idDoctor){
         return rendezVousRepo.getAppointmentGrowthByDoctor(idDoctor);
     }
 
-    public List<Appointment> getLatestAppointmentByDoctor(String idDoctor){
-        List<RendezVous> rendezVous = rendezVousRepo.getLatestAppointmentByDoctor(idDoctor);
-        List<Appointment> appointments = new ArrayList<>();
-        for(RendezVous rv: rendezVous){
-           Appointment appointment= new Appointment();
-           appointment.setRendezVous(rv);
-           appointment.setPatient(rv.getPatient());
-           appointments.add(appointment);
-        }
-        return  appointments;
+    public List<ICount> getInvitationCountByDoctor(String idDoctor){
+        return rendezVousRepo.getInvitationCountByDoctor(idDoctor);
+    }
+
+    public List<IGrowthPercentage> getInvitationGrowthByDoctor(String idDoctor){
+        return rendezVousRepo.getInvitationGrowthByDoctor(idDoctor);
+    }
+
+    public List<IAppointment> getLatestAppointmentByDoctor(String idDoctor){
+        return rendezVousRepo.getLatestAppointmentByDoctor(idDoctor);
+
     };
+
+    public void denyAppointment(Appointment appointment){
+        rendezVousRepo.denyAppointment(appointment.getIdDoctor(),appointment.getIdPatient(),appointment.getDate());
+    }
+
+    public void acceptAppointment(Appointment appointment){
+        rendezVousRepo.acceptAppointment(appointment.getIdDoctor(),appointment.getIdPatient(),appointment.getDate());
+    }
 
 
 }

@@ -1,17 +1,14 @@
 package com.example.backend.model;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Appointment {
-
-    private Patient patient;
-    private RendezVous rendezVous;
+    private String idDoctor;
+    private String idPatient;
+    private String date;
 }

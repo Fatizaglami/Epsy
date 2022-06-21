@@ -20,12 +20,12 @@ public class RendezVous {
     private RendezVousId id = new RendezVousId();
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @MapsId("idDoctor")
     private Doctor doctor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @MapsId("idPatient")
     private Patient patient;

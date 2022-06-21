@@ -1,6 +1,9 @@
 package com.example.backend.service;
 
 
+import com.example.backend.model.ICount;
+import com.example.backend.model.IGrowthPercentage;
+import com.example.backend.model.IPatientCountChartPoint;
 import com.example.backend.model.Patient;
 import com.example.backend.repository.PatientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,15 +51,19 @@ public class PatientService {
         return patients;
     }
 
-    public Integer getPatientCountByDoctor(String idDoctor){
+    public List<ICount> getPatientCountByDoctor(String idDoctor){
         return patientRepo.getPatientCountByDoctor(idDoctor);
     }
 
-    public BigDecimal getPatientGrowthByDoctor(String idDoctor){
+    public List<IGrowthPercentage> getPatientGrowthByDoctor(String idDoctor){
         return patientRepo.getPatientGrowthByDoctor(idDoctor);
     }
 
     public List<Patient> getNewJoinedPatientsByDoctor(String idDoctor){
         return patientRepo.getNewJoinedPatientsByDoctor(idDoctor);
+    }
+
+    public List<IPatientCountChartPoint> getPatientCountChartByDoctor(String idDoctor){
+        return patientRepo.getPatientCountChartByDoctor(idDoctor);
     }
 }
