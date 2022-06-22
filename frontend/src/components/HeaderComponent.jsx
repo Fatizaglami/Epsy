@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../../src/logo.svg'
+import psychologie from '../../src/psychologie.png'
 import 'bootstrap/dist/css/bootstrap.css'
 import './header.css'
 
@@ -19,7 +19,7 @@ class HeaderComponent extends Component {
             <Navbar bg="dark" variant="dark"
         sticky="top" expand="sm" collapseOnSelect>
        <div className='topleft'> <Navbar.Brand>
-          <img src={logo} width="40px" height="40px" />{' '}
+          <img src={psychologie} width="40px" height="40px" />{' '}
           E-psy
         </Navbar.Brand></div>
 <div className='topRight'>

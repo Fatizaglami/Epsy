@@ -3,7 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repository.PatientRepo;
-import com.example.backend.service.IPatientService;
+//import com.example.backend.service.IPatientService;
 import com.example.backend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +26,11 @@ public class PatientController {
     @Autowired
     PatientRepo patientRepo;
 
-    private final IPatientService patientService;
+   // private final IPatientService patientService;
 
-    public PatientController(IPatientService patientService) {
-        this.patientService = patientService;
-    }
+  //  public PatientController(IPatientService patientService) {
+   //     this.patientService = patientService;
+  //  }
 
     //patient list of doc
     @RequestMapping("/patientof")
@@ -127,7 +127,7 @@ public class PatientController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/patients/{patientId}")
+   /* @GetMapping("/patients/{patientId}")
     public Patient getPatient(@PathVariable String patientId) {
         return patientService.getPatient(patientId);
     }
@@ -146,5 +146,5 @@ public class PatientController {
     @GetMapping("/patients/{patientId}/doctors")
     public List<Doctor> getAllDoctors(@PathVariable String patientId) {
         return patientService.getAllDoctors(patientId);
-    }
+    }*/
 }

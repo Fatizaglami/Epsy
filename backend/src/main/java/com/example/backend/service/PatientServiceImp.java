@@ -1,9 +1,10 @@
-package com.example.backend.service;
+/*package com.example.backend.service;
 
 import com.example.backend.model.Doctor;
 import com.example.backend.model.Patient;
 import com.example.backend.model.Suivi;
 import com.example.backend.repository.PatientRepo;
+import com.example.backend.service.IPatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,9 +12,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-public class PatientServiceImp implements IPatientService {
+public class PatientServiceImp implements IPatientService {*/
 
-    private final PatientRepo patientRepository;
+ /*   private final PatientRepo patientRepository;
 
     public PatientServiceImp(PatientRepo patientRepository) {
         this.patientRepository = patientRepository;
@@ -68,4 +69,4 @@ public class PatientServiceImp implements IPatientService {
         // Get all doctors for patient
         return patient.getDoctors().stream().toList();
     }
-}
+}*/

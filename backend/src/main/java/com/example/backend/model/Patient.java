@@ -61,7 +61,8 @@ public class Patient {
     @JsonIgnore
     private List<RendezVous> rendezVous;
 
-    @OneToMany(
+   /* yahya's part*/
+   /*@OneToMany(
             targetEntity = Suivi.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true,
@@ -86,5 +87,5 @@ public class Patient {
                     name = "patient_id",
                     referencedColumnName = "id"
             )
-    private Set<Doctor> doctors;
+    private Set<Doctor> doctors;*/
 }

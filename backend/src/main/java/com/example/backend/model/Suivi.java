@@ -1,4 +1,4 @@
-package com.example.backend.model;
+/*package com.example.backend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,4 +47,4 @@ public class Suivi implements Serializable {
 
 
     }
-}
+}*/

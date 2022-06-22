@@ -1,41 +1,29 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Routes}from 'react-router-dom'
-import HeaderComponent from './components/HeaderComponent';
-import FooterComponent from './components/FooterComponent';
-import ListDoc from './components/ListDoc';
-import AddDoctorCom from './components/AddDoctorCom';
-import UpdateDoctorCom from './components/UpdateDoctorCom';
-import ListPatients from './components/ListPatients';
-import HomeAdmin from './components/HomeAdmin';
-import AddPatient from './components/AddPatient';
-import UpdatePatient from './components/UpdatePatient';
+import React from 'react';
+
+
+
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+
+
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import Admin from './components/Admin';
 
 function App() {
   return (
-    <div>
-      <Router>
-        
-           <HeaderComponent/>
-    
-              <div className="container">
-                <Routes>
-                  
-                  <Route path='/' exact element={<HomeAdmin/>}></Route>
-                  <Route path='/doctors' element={<ListDoc/>}></Route>
-                  <Route path='/patients' element={<ListPatients/>}></Route>
-                  <Route path='/add-doctor' element={<AddDoctorCom/>}></Route>
-                  <Route path='/add-patient' element={<AddPatient/>}></Route>
-                  <Route path='/update-patient/:email' element={<UpdatePatient/>}></Route>
-                  <Route path='/update-doctor/:email' element={<UpdateDoctorCom/>}></Route>
-
-
-                </Routes>
-              </div>
-            <FooterComponent/>
-       
-       </Router>
-    </div>
+  
+   <BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<RegisterPage />} />
+        <Route path="/Login" exact element={<LoginPage />} />
+        <Route path="/admin" exact element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+
+
 
 export default App;

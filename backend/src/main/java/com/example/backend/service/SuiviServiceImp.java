@@ -1,4 +1,4 @@
-package com.example.backend.service;
+/*package com.example.backend.service;
 
 import com.example.backend.model.Patient;
 import com.example.backend.model.Suivi;
@@ -48,4 +48,4 @@ public class SuiviServiceImp implements ISuiviService {
         suiviRepository.deleteById(id);
     }
 
-}
+}*/

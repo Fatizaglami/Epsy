@@ -1,4 +1,4 @@
-package com.example.backend.service;
+/*package com.example.backend.service;
 
 import com.example.backend.model.Patient;
 import com.example.backend.model.Suivi;
@@ -19,4 +19,4 @@ public interface ISuiviService {
     void deleteSuivi(Long id);
 
 
-}
+}*/

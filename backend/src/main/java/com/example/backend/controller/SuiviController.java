@@ -1,4 +1,4 @@
-package com.example.backend.controller;
+/*package com.example.backend.controller;
 
 import com.example.backend.model.Suivi;
 import com.example.backend.service.ISuiviService;
@@ -36,3 +36,4 @@ public class SuiviController {
         suivitService.deleteSuivi(suivitId);
     }
 }
+*/

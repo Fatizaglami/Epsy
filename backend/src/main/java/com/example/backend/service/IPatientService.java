@@ -1,4 +1,4 @@
-package com.example.backend.service;
+/*package com.example.backend.service;
 
 import com.example.backend.model.Doctor;
 import com.example.backend.model.Patient;
@@ -23,3 +23,4 @@ public interface IPatientService {
 
     List<Doctor> getAllDoctors(String patientId);
 }
+*/
