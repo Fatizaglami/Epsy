@@ -55,6 +55,8 @@ public class RendezVousService {
     public void acceptAppointment(Appointment appointment){
         rendezVousRepo.acceptAppointment(appointment.getIdDoctor(),appointment.getIdPatient(),appointment.getDate());
     }
-
+    public void addRendezVous(Appointment appointment){
+        rendezVousRepo.saveAppointment(appointment.getIdDoctor(),appointment.getIdPatient(),appointment.getDate());
+    }
 
 }

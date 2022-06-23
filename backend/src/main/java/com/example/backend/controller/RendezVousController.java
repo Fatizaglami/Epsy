@@ -4,11 +4,11 @@ package com.example.backend.controller;
 import com.example.backend.model.*;
 import com.example.backend.service.RendezVousService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 @CrossOrigin("*")
 @RestController
@@ -18,7 +18,7 @@ public class RendezVousController {
     private RendezVousService service;
 
     //unconfirmed appointment
-    @RequestMapping("/rendezvous")
+    @GetMapping("/rendezvous")
     public List<IAppointmentNotification> getRendezVousNotificationByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -26,7 +26,7 @@ public class RendezVousController {
     }
 
     //appointment count for current month
-    @RequestMapping("/appointmentcount")
+    @GetMapping("/appointmentcount")
     public List<ICount> getAppointmentCountByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -34,7 +34,7 @@ public class RendezVousController {
     }
 
     //increase for appointment count for current month
-    @RequestMapping("/appointmentgrowth")
+    @GetMapping("/appointmentgrowth")
     public List<IGrowthPercentage> getAppointmentGrowthByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -42,7 +42,7 @@ public class RendezVousController {
     }
 
     //appointment count for current month
-    @RequestMapping("/invitationcount")
+    @GetMapping("/invitationcount")
     public List<ICount> getInvitationCountByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -50,7 +50,7 @@ public class RendezVousController {
     }
 
     //increase for appointment count for current month
-    @RequestMapping("/invitationgrowth")
+    @GetMapping("/invitationgrowth")
     public List<IGrowthPercentage> getInvitationGrowthByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -58,22 +58,29 @@ public class RendezVousController {
     }
 
     //the latest 4 new appointments
-    @RequestMapping("/latestappointment")
+    @GetMapping("/latestappointment")
     public List<IAppointment> getLatestAppointmentByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
         return service.getLatestAppointmentByDoctor(idDoctor);
     }
 
-    @RequestMapping("/denyappointment")
+    @PostMapping("/denyappointment")
     public void denyAppointment(@RequestBody Appointment appointment){
         service.denyAppointment(appointment);
     }
 
-    @RequestMapping("/acceptappointment")
+    @PostMapping("/acceptappointment")
     public void acceptAppointment(@RequestBody Appointment appointment){
         service.acceptAppointment(appointment);
     }
 
-
+    @PostMapping("/sendAppointmentRequest")
+    public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment, Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idPatient = user.getUsername();
+        appointment.setIdPatient(idPatient);
+        service.addRendezVous(appointment);
+        return new ResponseEntity<String>("{message: appointment request sent}", HttpStatus.OK);
+    }
 }

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import DoctorService from '../services/DoctorService'
 import './addDoc.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import FooterComponent from './FooterComponent';
+import HeaderComponent from './HeaderComponent';
 
 
 
@@ -58,6 +60,8 @@ const AddDoctorCom = () => {
     }
 
     return (
+      <div>
+        <HeaderComponent/>
         <div className="bd">
 <div className="con">
 <div className="title">Add Doctor</div>
@@ -112,8 +116,9 @@ const AddDoctorCom = () => {
 	</div>
 	<div className="button">
 		
-		<input type="submit" className="btn btn-success" onClick = {(e) => saveDoctor(e)}  value="save"/>
-		<Link to="/" className='btn btn-outline-secondary'> Cancel </Link>
+		<input type="submit" className="btn btn-success" onClick = {(e) => saveDoctor(e)}  value="save"/>{" "}
+            &nbsp;
+		<Link to="/doctors" className='btn btn-outline-secondary'> Cancel </Link>
 
 	
 	
@@ -121,6 +126,8 @@ const AddDoctorCom = () => {
 	
 </form>
 	</div>
+</div>
+<FooterComponent/>
 </div>
 
     )

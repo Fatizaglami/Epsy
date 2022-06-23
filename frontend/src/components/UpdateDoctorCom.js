@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import DoctorService from '../services/DoctorService'
 import './addDoc.css'
+import FooterComponent from './FooterComponent';
+import HeaderComponent from './HeaderComponent';
 
 const UpdateDoctorCom = () => {
 
@@ -55,7 +57,10 @@ const UpdateDoctorCom = () => {
     }
 
     return (
-        <div className='upd'>
+        <div>
+            <HeaderComponent/>
+        
+        <div className='upd' >
            <br /><br />
            <div className = "container">
                 <div className = "row">
@@ -94,6 +99,7 @@ const UpdateDoctorCom = () => {
                                     <label className = "form-label"> Password :</label>
                                     <input
                                         type = "text"
+                                        disabled
                                         placeholder = "Enter Password"
                                         name = "password"
                                         className = "form-control"
@@ -155,8 +161,8 @@ const UpdateDoctorCom = () => {
 
                                 
 
-                                <button className = "btn btn-success" onClick = {(e) => saveOrUpdatedoctor(e)} >Submit </button>
-                                <Link to="/doctors" className="btn btn-danger"> Cancel </Link>
+                                <button className = "btn btn-outline-warning" style={{margin:"10px"}} onClick = {(e) => saveOrUpdatedoctor(e)} >Submit </button>
+                                <Link to="/doctors" className="btn btn-outline-info"> Cancel </Link>
                             </form>
 
                         </div>
@@ -165,6 +171,9 @@ const UpdateDoctorCom = () => {
 
            </div>
 
+        </div>
+        
+        
         </div>
     )
 }

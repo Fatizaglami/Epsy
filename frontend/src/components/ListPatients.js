@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import PatientService from '../services/PatientService'
+import FooterComponent from './FooterComponent'
+import HeaderComponent from './HeaderComponent'
 
 const ListPatients = () => {
 
@@ -32,6 +34,8 @@ const ListPatients = () => {
 
     return (
         <div>
+            <HeaderComponent/>
+            <div style = {{margin:"20px"}}>
         <h2 className='text-center'>Patients List</h2>
         
             <button className='btn btn-outline-primary mb-2'><a  href="/add-patient" >Add Patient</a></button>
@@ -45,7 +49,6 @@ const ListPatients = () => {
                         <th>Email</th>
                         <th>Phone number</th>
                         <th>Cin</th>
-                        <th>Password</th>
                         <th>Situation</th>
                         <th>Date of birthday</th>
                         <th>Gender</th>
@@ -63,7 +66,7 @@ const ListPatients = () => {
                                 <td>{patient.email}</td>
                                 <td>{patient.tel}</td>
                                 <td>{patient.cin}</td>
-                                <td>{patient.password}</td>
+                               
                                 <td>{patient.situtation}</td>
                                 <td>{patient.dateNaissance}</td>
                                 <td>{patient.sex}</td>
@@ -78,6 +81,8 @@ const ListPatients = () => {
                 </tbody>
             </table>
         </div>
+        </div>
+        <FooterComponent/>
         </div>
     )
 }

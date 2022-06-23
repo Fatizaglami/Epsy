@@ -47,6 +47,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/appointmentcount","/appointmentgrowth","/invitationcount","/invitationgrowth"
                         ,"/latestappointment","/denyappointment","/acceptappointment")
                 .hasAuthority("doctor")
+                .antMatchers("/hasDoctor","/sendAppointmentRequest")
+                .hasAuthority("patient")
                 .and()
                 .httpBasic();
         http.sessionManagement().maximumSessions(1);

@@ -33,7 +33,7 @@ public class PatientController {
   //  }
 
     //patient list of doc
-    @RequestMapping("/patientof")
+    @GetMapping("/patientof")
     public List<Patient> getPatientOf(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -42,7 +42,7 @@ public class PatientController {
     }
 
     //search doc's patient by name or lastname
-    @RequestMapping("/search/{fullname}")
+    @GetMapping("/search/{fullname}")
     public List<Patient> findPatientOfByName(@PathVariable String fullname,Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -50,7 +50,7 @@ public class PatientController {
     }
 
     //patient counts for current month
-    @RequestMapping("/patientcount")
+    @GetMapping("/patientcount")
     public List<ICount> getPatientCountByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -58,7 +58,7 @@ public class PatientController {
     }
 
     //patient count increase(positive,negative)
-    @RequestMapping("/patientgrowth")
+    @GetMapping("/patientgrowth")
     public List<IGrowthPercentage> getPatientCountGrowthByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -66,7 +66,7 @@ public class PatientController {
     }
 
     //4 new joined patients
-    @RequestMapping("/newpatients")
+    @GetMapping("/newpatients")
     public List<Patient> newJoinedPatientsByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
@@ -74,7 +74,7 @@ public class PatientController {
     }
 
     //
-    @RequestMapping("/patientcountchart")
+    @GetMapping("/patientcountchart")
     public List<IPatientCountChartPoint> getLatestAppointmentByDoctor(Authentication auth){
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();

@@ -1,80 +1,96 @@
-import { Formik, Form } from 'formik';
-import { TextField } from './TextField';
-import * as Yup from 'yup';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom';
+import { Formik, Form } from "formik";
+import { TextField } from "./TextField";
+import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Redirect, useNavigate } from "react-router-dom";
 
-
-const initialState = { username: '', password: '' };
-const msgError =""
-
+const initialState = { username: "", password: "" };
+const msgError = "";
 
 export const Signin = () => {
-    const [form, setForm] = useState(initialState);
-    const [msgError, setMsgError] = useState("");
+  const [form, setForm] = useState(initialState);
+  const [msgError, setMsgError] = useState("");
+  const navigate = useNavigate();
   const validate = Yup.object().shape({
     username: Yup.string()
-      .email('username is invalid')
-      .required('username is required'),
-    password: Yup.string()
-      
-      .required('Password is required'),
+      .email("username is invalid")
+      .required("username is required"),
+    password: Yup.string().required("Password is required"),
+  });
 
-  })
- 
-  const handleSubmit = (values) => {
-   axios.get("http://localhost:8080/user/home", {
-      
+  const handleSubmit = async (values) => {
+    /* axios
+      .get("http://localhost:8080/user/home", {
         auth: {
           username: values.username,
-          password: values.password
+          password: values.password,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          if (res.data.role[0].authority === "patient") {
+            navigate("/HeaderCompoenent");
+          }
         }
-      }).then(
-        res=>{
-            if(res.status==200)  console.log(res.data.role[0].authority)
+        //console.log(res.data.role[0].authority)
+        else if (res.status == 401) console.log(res.data.role[0]);
+      })
+      .catch((e) => {
+        setMsgError("Email or password is incorrect");
+      });*/
+    try {
+      const rest = await axios.get("http://localhost:8080/user/home", {
+        auth: {
+          username: values.username,
+          password: values.password,
+        },
+      });
+      if (rest.status === 200) {
+        redirectToCorrectPage(rest, navigate);
+      } else if (rest.status === 401) console.log(rest.data.role[0]);
+    } catch (e) {
+      setMsgError("Email or password is incorrect");
+    }
+  };
 
-            if(res.data.role[0].authority=="patient"){
-              
-            }
-            else if(res.status==401) console.log(res.data.role[0])
-        }).catch(e => {setMsgError("Email or password is incorrect");
-	})
-           
-           
-  
-       
-    
-  }
   return (
     <Formik
       initialValues={{
-      
-        username: '',
-        password: '',
-    
+        username: "",
+        password: "",
       }}
       validationSchema={validate}
-      onSubmit={values => {
-        console.log(values)
+      onSubmit={(values) => {
+        console.log(values);
         //setForm({...form ,  prenom: values.prenom, nom: values.nom, email: values.email, password: values.password })
-        handleSubmit(values)
+        handleSubmit(values);
       }}
     >
-      {formik => (
+      {(formik) => (
         <div>
           <h1 className="my-4 font-weight-bold .display-4">Sign in</h1>
           <p className="text-danger text-center">{msgError}</p>
-          <Form >
+          <Form>
             <TextField label="Email" name="username" type="username" />
-            <TextField label="Password" name="password" type="password"/>
-            <button className="btn btn-dark mt-3" type="submit" >Login</button> &nbsp;
-            </Form>
+            <TextField label="Password" name="password" type="password" />
+            <button className="btn btn-dark mt-3" type="submit">
+              Login
+            </button>{" "}
+            &nbsp;
+          </Form>
         </div>
       )}
     </Formik>
-    
   );
-
-      }
-    
+};
+function redirectToCorrectPage(rest, navigate) {
+  const role = rest.data.role[0].authority;
+  if (role === "patient") {
+    navigate("/patient");
+  } else if (role === "admin") {
+    navigate("/admin");
+  } else {
+    navigate("/doctor");
+  }
+}

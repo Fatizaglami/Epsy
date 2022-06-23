@@ -92,6 +92,7 @@ form .button input:hover{
 	justify-content: center;
 	display: flex;
 	margin-top: 20px;
+	z-index: 1000 !important;
 	
 }
 

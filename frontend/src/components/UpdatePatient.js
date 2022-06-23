@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import PatientService from '../services/PatientService'
 import './addDoc.css'
+import FooterComponent from './FooterComponent';
+import HeaderComponent from './HeaderComponent';
 
 const UpdatePatient = () => {
 
@@ -52,6 +54,9 @@ const UpdatePatient = () => {
     
 
     return (
+        <div>
+            <HeaderComponent/>
+       
         <div className='upd'>
            <br /><br />
            <div className = "container">
@@ -91,6 +96,7 @@ const UpdatePatient = () => {
                                         type = "text"
                                         placeholder = "Enter Password"
                                         name = "password"
+                                        disabled
                                         className = "form-control"
                                         value = {password}
                                         onChange = {(e) => setPassword(e.target.value)}
@@ -174,8 +180,9 @@ const UpdatePatient = () => {
 
                                 
 
-                                <button className = "btn btn-success" onClick = {(e) => savePatient(e)} >Submit </button>
-                                <Link to="/patients" className="btn btn-danger"> Cancel </Link>
+                                <button className = "btn btn-outline-warning"  onClick = {(e) => savePatient(e)} >Submit </button>{" "}
+            &nbsp; 
+                                <Link to="/patients" className="btn btn-outline-info" style={{margin :"10px"}}> Cancel </Link>
                             </form>
 
                         </div>
@@ -184,6 +191,7 @@ const UpdatePatient = () => {
 
            </div>
 
+        </div>
         </div>
     )
 }

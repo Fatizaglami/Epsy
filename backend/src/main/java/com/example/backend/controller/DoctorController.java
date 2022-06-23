@@ -5,6 +5,7 @@ import com.example.backend.model.Doctor;
 import com.example.backend.repository.DoctorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,6 +16,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/doctors")
 public class DoctorController {
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Autowired
     private DoctorRepo doctorRepo;
@@ -28,7 +32,10 @@ public class DoctorController {
     //create doctor rest api
     @PostMapping
     public Doctor addDoctor(@RequestBody Doctor doctor){
-        return doctorRepo.save(doctor);
+        Doctor savedDoctor = doctor;
+        String newpassword = encoder.encode(doctor.getPassword());
+        savedDoctor.setPassword(newpassword);
+        return doctorRepo.save(savedDoctor);
     }
 
    //get doctor by email

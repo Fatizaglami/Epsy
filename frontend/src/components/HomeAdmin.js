@@ -1,6 +1,8 @@
 import Particles from "react-tsparticles"
 import { loadFull } from "tsparticles";
 import Cards from "./Cards";
+import FooterComponent from "./FooterComponent";
+import HeaderComponent from "./HeaderComponent";
 import './home.css'
 
 
@@ -14,7 +16,10 @@ export default function HomeAdmin() {
         await loadFull(main);
       };
     return (
-        
+        <div>
+        <HeaderComponent/>
+
+       
       <div className="bd">
         <Particles
       id="tsparticles"
@@ -143,11 +148,17 @@ export default function HomeAdmin() {
       }}
     ></Particles>
     <div className="ts">
+        
     <Cards/>
+
+    
     </div>
     
     
     
       </div>
+      <FooterComponent/>
+      </div>
+     
     );
   } 

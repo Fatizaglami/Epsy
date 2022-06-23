@@ -27,7 +27,7 @@ class HeaderComponent extends Component {
         <Navbar.Toggle className="coloring" />
         <Navbar.Collapse pullRight>
           <Nav >
-          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/admin">Home</Nav.Link>
             <NavDropdown title="Crud">
               <NavDropdown.Item href="/doctors">Doctors</NavDropdown.Item>
               <NavDropdown.Item href="/patients">Patients</NavDropdown.Item>
@@ -37,7 +37,7 @@ class HeaderComponent extends Component {
             </NavDropdown>
             <Nav.Link href="#about-us">About Us</Nav.Link>
             <Nav.Link href="#contact-us">Contact Us</Nav.Link>
-            <Nav.Link href="#logout">Logout</Nav.Link>
+            <Nav.Link href="/">Logout</Nav.Link>
 
           </Nav>
         </Navbar.Collapse>

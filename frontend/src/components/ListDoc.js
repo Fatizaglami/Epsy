@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import DoctorService from '../services/DoctorService'
+import FooterComponent from './FooterComponent'
+import HeaderComponent from './HeaderComponent'
 
 const ListDoc = () => {
 
@@ -31,7 +33,10 @@ const ListDoc = () => {
     }
 
     return (
-        <div className='listDoc'>
+        <div>
+            <HeaderComponent/>
+        
+        <div className='listDoc' style = {{margin:"20px"}}>
         <h2 className='text-center'>Doctors List</h2>
         
             <button className='btn btn-outline-primary mb-2'><a  href="/add-doctor" >Add Doctor</a></button>
@@ -45,7 +50,6 @@ const ListDoc = () => {
                         <th>Email</th>
                         <th>Tel</th>
                         <th>Cin</th>
-                        <th>Password</th>
                         <th>Specialite</th>
                         <th>Actions</th>
 
@@ -60,13 +64,12 @@ const ListDoc = () => {
                                 <td>{doctor.prenom}</td>
                                 <td>{doctor.email}</td>
                                 <td>{doctor.tel}</td>
-                                <td>{doctor.password}</td>
                                 <td>{doctor.cin}</td>
                                 <td>{doctor.specialite}</td>
                                 <td>
                                 <Link className="btn btn-info" to={`/update-doctor/${doctor.email}`} >Update</Link>
                                     <button className = "btn btn-danger" onClick = {() => deleteDoctor(doctor.email)}
-                                    style = {{marginLeft:"10px"}}> Delete</button>
+                                    style = {{marginLeft:"5px"}}> Delete</button>
                                 </td>
                             </tr>
                         )
@@ -74,6 +77,8 @@ const ListDoc = () => {
                 </tbody>
             </table>
         </div>
+        </div>
+        <FooterComponent/>
         </div>
     )
 }
