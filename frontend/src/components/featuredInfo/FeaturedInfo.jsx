@@ -3,49 +3,56 @@ import "./featuredInfo.css"
 import {ArrowUpward, ArrowDownward} from '@material-ui/icons'
 import {useEffect, useState} from 'react';
 import axios from "axios"
+import AppointementService from '../../services/AppointementService';
+import PatientService from '../../services/PatientService';
 
 export default function () {
     const [appointementCount, setAppointementCount]=useState([]);
     const [invitationsCount, setInvitationsCount]=useState([]);
     const [patientsCount, setPatientsCount]=useState([]);
-    const getAppointemetCount =  async () =>{
-        await  axios.get("http://localhost:8080/appointmentcount")
-       
-         .then((response => {
-            setAppointementCount(response.data);
-           console.log(response);
-         })
-         ).catch((e)=> console.log(e));
-       }
-       useEffect(()=>{
-        getAppointemetCount();
-      },[]);
-      const getInvitationsCount =  async () =>{
-        await  axios.get("http://localhost:8080/invitationcount")
-       
-         .then((response => {
-            setInvitationsCount(response.data);
-           console.log(response);
-         })
-         ).catch((e)=> console.log(e));
-       }
-       useEffect(()=>{
-        getInvitationsCount();
-      },[]);
+
+    useEffect(() => {
+
+      getAppointementCount();
+  }, [])
+
+  const getAppointementCount = () => {
+      AppointementService.getAppointementCount().then((response) => {
+          setAppointementCount(response.data)
+          console.log(response.data);
+      }).catch(error =>{
+          console.log(error);
+      })
+  }
+  useEffect(() => {
+
+    getInvitationsCount();
+}, [])
+
+const getInvitationsCount = () => {
+    AppointementService.getInvitationsCount().then((response) => {
+        setInvitationsCount(response.data)
+        console.log(response.data);
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+  
+useEffect(() => {
+
+  getPatientsCount();
+}, [])
+
+const getPatientsCount = () => {
+  PatientService.getPatientsCount().then((response) => {
+      setPatientsCount(response.data)
+      console.log(response.data);
+  }).catch(error =>{
+      console.log(error);
+  })
+}
 
 
-      const getPatientsCount =  async () =>{
-        await  axios.get("http://localhost:8080/patientcount")
-       
-         .then((response => {
-            setPatientsCount(response.data);
-           console.log(response);
-         })
-         ).catch((e)=> console.log(e));
-       }
-       useEffect(()=>{
-        getPatientsCount();
-      },[]);
   return (
     <div className="featured">
         <div className="featuredItem">

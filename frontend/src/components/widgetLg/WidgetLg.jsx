@@ -1,7 +1,9 @@
 import React from 'react'
 import {useEffect, useState} from 'react';
+import doc from '../../assets/doc.jpg'
 import "./widget.css"
 import axios from "axios"
+import AppointementService from '../../services/AppointementService';
 
 
 export default function WidgetLg() {
@@ -9,19 +11,24 @@ export default function WidgetLg() {
     return <button className={'widgetLgButton ' + type}> {type}</button>
   }
   const [appointements, setAppointements]=useState([]);
-  const getLatestAppointements =  async () =>{
-    await  axios.get("http://localhost:8080/latestappointment")
-   
-     .then((response => {
-      setAppointements(response.data);
-       console.log(response);
-     })
-     ).catch((e)=> console.log(e));
-   }
+  useEffect(() => {
 
-   useEffect(()=>{
     getLatestAppointements();
-  },[]);
+}, [])
+
+const getLatestAppointements = () => {
+    AppointementService.getLatestAppointements().then((response) => {
+        setAppointements(response.data)
+        console.log(response.data);
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+
+
+
+  
   return (
     <div className='widgetLg'>
       <h3 className="widgetLgTitle">Latest Appointement</h3>
@@ -39,7 +46,7 @@ export default function WidgetLg() {
               appointement =>
               <tr className="widgetLgTr">
           <td className="widgetLgPatient">
-            <img src="profil.jpeg" alt="" className="widgetLgImage" />
+            <img src={doc} alt="" className="widgetLgImage" />
             <span className="widgetLgName"> {appointement.nom}
             </span>
             <span className="widgetLgName"> 

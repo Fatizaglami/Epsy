@@ -21,10 +21,10 @@ public interface PatientRepo extends JpaRepository<Patient,String> {
             "where d.email=?1 and concat(p.nom,' ',p.prenom) like %?2% ")
     List<Patient> findPatientByFullname(String idDoctor, String fullname);
 
-    @Query(nativeQuery = true,value = "select p.* from patient p, doctor d, patientof of " +
-            "where of.doctor_email=d.email and of.patient_email=p.email " +
+    @Query(nativeQuery = true,value = "select p.* from patient p, doctor d, patientof pf " +
+            "where pf.doctor_email=d.email and pf.patient_email=p.email " +
             "and d.email = :idDoctor " +
-            "order by of.date_debut desc limit 4")
+            "order by pf.date_debut desc limit 4")
     List<Patient> getNewJoinedPatientsByDoctor(@Param("idDoctor") String idDoctor);
 
 

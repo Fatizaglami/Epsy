@@ -1,29 +1,30 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
 import "./patientList.css"
+import doc from "../../assets/doc.jpg";
+
 import { DataGrid } from '@mui/x-data-grid';
 import {Link} from "react-router-dom";
 import PatientService from '../../services/PatientService';
-import axios from "axios"
 import Topbar from '../../components/topbar/Topbar';
 import Sidbar from '../../components/sidbar/Sidbar';
 
 export default function PatientList(){
+  const [patients, setPatients] = useState([])
 
-  const [patients, setPatients]=useState([]);
-const getPatientByDoctor =  async () =>{
- await  axios.get("http://localhost:8080/patientof")
+  useEffect(() => {
 
-  .then((response => {
-    setPatients(response.data);
-    console.log(response);
-  })
-  ).catch((e)=> console.log(e));
-}
- useEffect(()=>{
-    getPatientByDoctor();
-  },[]);
-    
+      listPatient();
+  }, [])
+
+  const listPatient = () => {
+      PatientService.listPatient().then((response) => {
+          setPatients(response.data)
+          console.log(response.data);
+      }).catch(error =>{
+          console.log(error);
+      })
+  }
       
   return (
     <div>
@@ -42,7 +43,6 @@ const getPatientByDoctor =  async () =>{
                                 <th>Email</th>
                                 <th>Tel</th>
                                 <th>Cin</th>
-                                <th>Password</th>
                                 <th>Sexe</th>
                                 <th>Actions</th>
 
@@ -53,12 +53,11 @@ const getPatientByDoctor =  async () =>{
                                 patients.map(
                                    patient =>
                                     <tr key={patient.email}>
-                                      <td><img src="/profil.jpeg" alt="" className="patientListImage" /></td>
+                                      <td><img src={doc} alt="" className="patientListImage" /></td>
                                         <td>{patient.nom}  </td>
                                         <td>{patient.prenom}</td>
                                         <td>{patient.email}</td>
                                         <td>{patient.tel}</td>
-                                        <td>{patient.password}</td>
                                         <td>{patient.cin}</td>
                                         <td>{patient.sex}</td>
                                         <td>

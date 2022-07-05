@@ -20,6 +20,18 @@ class PatientService {
         return axios.delete(PATIENT_API_BASE_URL+'/'+patientId);
     
     }
+
+    listPatient(){
+        return axios.get(PATIENT_API_BASE_URL+'/patientof');
+    }
+
+    getNewMembers(){
+        
+        return axios.get('http://localhost:8080/patients/newpatients').catch((error)=>console.log("axios err" + error));
+    }
+    getPatientsCount(){
+        return axios.get("http://localhost:8080/patients/patientcount").catch((error)=>console.log("get pat err" + error));
+    }
 }
 
 export default new PatientService()

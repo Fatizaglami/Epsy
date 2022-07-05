@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin("*")
+@CrossOrigin("*" )
 @RequestMapping("/patients")
 @RestController
 public class PatientController {
@@ -38,6 +38,7 @@ public class PatientController {
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idDoctor = user.getUsername();
         List<Patient> patients = service.findPatientByDoctor(idDoctor);
+        System.out.println(idDoctor+"dazt");
         return patients;
     }
 
@@ -68,8 +69,12 @@ public class PatientController {
     //4 new joined patients
     @GetMapping("/newpatients")
     public List<Patient> newJoinedPatientsByDoctor(Authentication auth){
+
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+
         String idDoctor = user.getUsername();
+        System.out.println("id doctor hna" + idDoctor);
+        System.out.println(service.getNewJoinedPatientsByDoctor(idDoctor).size());
         return service.getNewJoinedPatientsByDoctor(idDoctor);
     }
 

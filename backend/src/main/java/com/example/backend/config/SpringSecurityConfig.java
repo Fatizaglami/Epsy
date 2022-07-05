@@ -52,6 +52,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic();
         http.sessionManagement().maximumSessions(1);
+        http.cors().disable();
+
 
     }
 }

@@ -1,23 +1,31 @@
 import React from 'react'
 import "./widgetSm.css"
 import {Visibility} from "@material-ui/icons"
+import doc from "../../assets/doc.jpg"
 import {useEffect, useState} from 'react';
+import PatientService from '../../services/PatientService';
 import axios from "axios"
 
 export default function WidgetSm() {
     const [newJoined, setNewJoined]=useState([]);
-    const getNewJoined =  async () =>{
-        await  axios.get("http://localhost:8080/newpatients")
-       
-         .then((response => {
-            setNewJoined(response.data);
-           console.log(response);
-         })
-         ).catch((e)=> console.log(e));
-       }
-       useEffect(()=>{
-        getNewJoined();
-      },[]);
+
+    useEffect(() => {
+
+      getNewMembers();
+  }, [])
+
+  const getNewMembers = () => {
+      PatientService.getNewMembers().then((response) => {
+          setNewJoined(response.data)
+          console.log(response.data);
+      }).catch(error =>{
+          console.log(error);
+      })
+  }
+
+
+
+    
   return (
     <div className='widgetSm'>
         <span className="widgetSmTitle"> New Join Members</span>
@@ -28,7 +36,7 @@ export default function WidgetSm() {
                newJoined.map(
                     newPatient =>
             <li className="widgetSmListItem">
-                <img src="profil.jpeg" alt="" className="widgetSmImage" />
+                <img src={doc} alt="" className="widgetSmImage" />
                 <div className="widgetSmPatient">
                     <span className="widgetSmPatientName">{ newPatient.nom}</span>
                     <span className="widgetSmPatientName">{newPatient.prenom}</span>

@@ -4,11 +4,12 @@ import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Redirect, useNavigate } from "react-router-dom";
-
+import { inseptorAxios } from "./inseptorAxios";
 const initialState = { username: "", password: "" };
 const msgError = "";
 
 export const Signin = () => {
+  const login =true;
   const [form, setForm] = useState(initialState);
   const [msgError, setMsgError] = useState("");
   const navigate = useNavigate();
@@ -47,10 +48,27 @@ export const Signin = () => {
         },
       });
       if (rest.status === 200) {
+
+        inseptorAxios(values.username, values.password);
+
+       /* console.log("ana hna");
+        axios.defaults.params = {password :"hiba", username:"doc@gmail.com"};
+        
+
+        console.log("ana hnaaa");
+        axios.interceptors.request.use(function (config) {
+          config={...config, ...{auth:{username:"doc@gmail.com",password:"hiba"}} } 
+
+          return config;
+           
+        }, (error)=>{console.log("inseptor err " + error )});
+        */
+        console.log("ana redirect");  
         redirectToCorrectPage(rest, navigate);
-      } else if (rest.status === 401) console.log(rest.data.role[0]);
+} else if (rest.status === 401) console.log(rest.data.role[0]);
     } catch (e) {
-      setMsgError("Email or password is incorrect");
+      console.log(e);
+      console.log("erreuuur hna");
     }
   };
 
@@ -87,9 +105,9 @@ export const Signin = () => {
 function redirectToCorrectPage(rest, navigate) {
   const role = rest.data.role[0].authority;
   if (role === "patient") {
-    navigate("/patient");
-  } else if (role === "admin") {
     navigate("/admin");
+  } else if (role === "admin") {
+    navigate("#/admin");
   } else {
     navigate("/doctor");
   }

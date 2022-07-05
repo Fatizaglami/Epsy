@@ -1,37 +1,40 @@
-import { Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ListDoctorCompenent from "./ListDoctorCompenent";
+import HeaderPatient from "./HeaderPatient";
+import FooterComponent from "./FooterComponent";
+import AddDoctor from "./AddDoctor";
 import AddSuivi from "../pages/AddSuivi";
 import MyDoctors from "../pages/MyDoctors";
+import EditProfile from "../pages/EditProfile";
+import MySuivis from "../pages/MySuivis";
+import EditSuivi from "../pages/EditSuivi";
 
 function AppCopy() {
   return (
-    <main className="w-full h-full min-h-screen flex flex-col gap-8 px-20 bg-gray-200">
-      <header className="w-full flex items-center justify-between px-20 py-4">
-        <h1>
-          <Link to="/">Psy.</Link>
-        </h1>
-        <ul className="flex items-center justify-center gap-3">
-          <li>
-            <Link to="/" className="text-sm text-red-600">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/my-doctors" className="text-sm text-red-600">
-              My Doctors
-            </Link>
-          </li>
-          <li>
-            <Link to="/add-suivi" className="text-sm text-red-600">
-              Add Suivi
-            </Link>
-          </li>
-        </ul>
-      </header>
-      <Routes>
-        <Route path="add-suivi" element={<AddSuivi />} />
-        <Route path="my-doctors" element={<MyDoctors />} />
-      </Routes>
-    </main>
+    <div>
+      <Router>
+        <HeaderPatient />
+
+        <div className="container">
+          <Routes>
+            <Route path="/" exact element={<ListDoctorCompenent />}></Route>
+            <Route path="/doctors" element={<ListDoctorCompenent />}></Route>
+            <Route path="/add-doctor" element={<AddDoctor />}></Route>
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="add-suivi" element={<AddSuivi />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="my-doctors" element={<MyDoctors />} />
+            <Route path="my-suivis" element={<MySuivis />} />
+            <Route path="edit-suivi">
+              <Route path=":id" element={<EditSuivi/>}/>
+            </Route>
+            
+          </Routes>
+        </div>
+        <FooterComponent />
+      </Router>
+    </div>
   );
 }
 
