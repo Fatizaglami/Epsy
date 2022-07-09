@@ -90,8 +90,8 @@ export const Signin = () => {
           <h1 className="my-4 font-weight-bold .display-4">Sign in</h1>
           <p className="text-danger text-center">{msgError}</p>
           <Form>
-            <TextField label="Email" name="username" type="username" />
-            <TextField label="Password" name="password" type="password" />
+            <TextField label="Email" placeholder="Email" name="username" type="username" />
+            <TextField label="Password" placeholder="Password" name="password" type="password" />
             <button className="btn btn-dark mt-3" type="submit">
               Login
             </button>{" "}
@@ -105,9 +105,9 @@ export const Signin = () => {
 function redirectToCorrectPage(rest, navigate) {
   const role = rest.data.role[0].authority;
   if (role === "patient") {
-    navigate("/admin");
+    navigate("/patient");
   } else if (role === "admin") {
-    navigate("#/admin");
+    navigate("/admin");
   } else {
     navigate("/doctor");
   }

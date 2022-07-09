@@ -10,10 +10,8 @@ export const counterSlice = createSlice({
         username: "",
         password: "",
       }, action) => {
-
-        console.log("action" + action.payload.username);
-       state = {...state, username:"doc@gmail.com", password:"hiba"};
-       
+       const user = action.payload['payload'];
+       state = {...state, username:user.username, password:user.password};
     },
   },
 });

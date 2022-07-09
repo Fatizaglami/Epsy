@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,5 +73,11 @@ Doctor doctor = doctorRepo.findById(email).orElseThrow(()->new ResourceNotFoundE
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/name/{nom}")
+    public List<Doctor> getDoctorByFullName(@PathVariable String nom ){
+
+        return doctorRepo.findDoctorByFullname(nom);
     }
 }

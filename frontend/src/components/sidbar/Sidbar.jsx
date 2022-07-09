@@ -2,6 +2,9 @@ import React from 'react'
 import "./sidbar.css"
 import {LineStyle, Timeline, InsertInvitation, NotificationsActive, People, Report, AccountCircle, Assignment, Email, Message, Feedback} from "@material-ui/icons"
 import {Link} from "react-router-dom";
+import { Logout } from '@mui/icons-material';
+import LogoutService from '../../services/LogoutService';
+
 export default function Sidbar() {
   return (
     <div className='sidebar'>
@@ -9,10 +12,15 @@ export default function Sidbar() {
         <div className="sidebarMenu">
             <h3 className="sidebarTitle">Dashboard</h3>
             <ul className="sidebarList">
+            <Link to="/doctor"> 
+            
                 <li className="sidebarListItem active">
                   <LineStyle className="sidebarIcon"/>
                   Home
-                </li>
+
+                </li></Link>
+                
+                
                 <li className="sidebarListItem">
                   <Timeline className="sidebarIcon"/>
                   Analytics
@@ -33,10 +41,12 @@ export default function Sidbar() {
                   <People className="sidebarIcon"/>
                   Patients
                 </li></Link>
-                <li className="sidebarListItem">
+                
+                <Link to="/redezVousList"> <li className="sidebarListItem" >
+
                   <InsertInvitation className="sidebarIcon"/>
                  My appointements
-                </li>
+                </li></Link>
                 <li className="sidebarListItem">
                   <NotificationsActive className="sidebarIcon"/>
                  Invitations
@@ -77,6 +87,11 @@ export default function Sidbar() {
                   <Report className="sidebarIcon"/>
                   Reports
                 </li>
+                <Link to="/" onClick={LogoutService.logout()}>
+                <li className="sidebarListItem">
+                  <Logout className="sidebarIcon"/>
+                  Logout
+                </li></Link>
                 
             </ul>
         </div>

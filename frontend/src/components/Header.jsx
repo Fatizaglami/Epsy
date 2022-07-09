@@ -25,9 +25,11 @@ class Header extends Component {
         <Navbar.Toggle className="coloring" />
         <Navbar.Collapse>
           <Nav>
-         
-            <Nav.Link href="#about-us">About Us</Nav.Link>
-            <Nav.Link href="#contact-us">Contact Us</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/about">About Us</Nav.Link>
+            <Nav.Link href="/contact">Contact Us</Nav.Link>
+            <Nav.Link href="/Login">Sign In</Nav.Link>
+            <Nav.Link href="/Register">Sign Up</Nav.Link>
             
 
           </Nav>

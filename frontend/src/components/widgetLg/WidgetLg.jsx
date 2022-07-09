@@ -11,6 +11,7 @@ export default function WidgetLg() {
     return <button className={'widgetLgButton ' + type}> {type}</button>
   }
   const [appointements, setAppointements]=useState([]);
+
   useEffect(() => {
 
     getLatestAppointements();
@@ -52,6 +53,7 @@ const getLatestAppointements = () => {
             <span className="widgetLgName"> 
             {appointement.prenom}</span></td>
             <td className="widgetLgDate"> {appointement.date}</td>
+           
             <td className="widgetLgStatus"> <Button type="Approved"/></td>
 
           

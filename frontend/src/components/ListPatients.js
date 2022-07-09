@@ -66,8 +66,7 @@ const ListPatients = () => {
                                 <td>{patient.email}</td>
                                 <td>{patient.tel}</td>
                                 <td>{patient.cin}</td>
-                               
-                                <td>{patient.situtation}</td>
+                                <td>{patient.situation}</td>
                                 <td>{patient.dateNaissance}</td>
                                 <td>{patient.sex}</td>
                                 <td>

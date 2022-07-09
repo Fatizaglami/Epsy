@@ -9,9 +9,15 @@ class FooterComponent extends Component {
        }
     render() {
         return (
-            <div>
+            <div >
+                
                 <footer className='footer'>
-                    <span className='text-muted'>All Rights Reserved 2022 @MiolaStudents</span>
+                 
+                      © 2022 MIOLACopyright:
+                      <a className="text-reset fw-bold" href="/">
+                       MiolaEPSY.com
+                      </a>
+                    
 
 
                 </footer>

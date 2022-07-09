@@ -1,6 +1,9 @@
 import React from 'react'
+import Topbar from "../../components/topbar/Topbar"
+import Sidbar from "../../components/sidbar/Sidbar"
+import doc from "../../assets/doc.jpg"
 import "./rendezVous.css"
-
+import AppointementService from "../../services/AppointementService";
 import { DataGrid } from '@mui/x-data-grid';
 import {Link,  useNavigate} from "react-router-dom";
 import {useEffect, useState} from 'react';
@@ -12,61 +15,53 @@ export default function RendezVous() {
   const history = useNavigate();
   
 
+  useEffect(() => {
+
+       
+    getRendezVousNotificationByDoctor();
+}, [])
+
+const getRendezVousNotificationByDoctor = () => {
+    AppointementService.getRendezVousNotificationByDoctor().then((response) => {
+        setAllAppointements(response.data)
+        console.log(response.data);
+    }).catch(error =>{
+        console.log(error);
+    })
+}
+
+  const isConfirmedField = (appointement) =>{
+    
+
+ const body= {
+    "date": appointement.date,
+    "idPatient":appointement.idPatient,
+    
+  }
+
+   AppointementService.acceptAppointement(body);
+   history('/doctor');
+   
+  }
 
 
-  const isConfirmedField = async (appointement) =>{
+
+  const isNotConfirmedField =  (appointement) =>{
     console.log(appointement.date)
 
  const body= {
     "date": appointement.date,
     "idPatient":appointement.idPatient,
-    "idDoctor":appointement.idDoctor
+    
   }
-
-    await axios.post("http://localhost:8080/acceptappointment", body)
-    .then((response => {
-      history.push('/redezVousList')
-    }).catch(error => {
-        console.log(error)
-      
-    }))
-  }
-
-
-
-  const isNotConfirmedField = async (appointement) =>{
-    console.log(appointement.date)
-
- const body= {
-    "date": appointement.date,
-    "idPatient":appointement.idPatient,
-    "idDoctor":appointement.idDoctor
-  }
-
-    await axios.post("http://localhost:8080/denyappointment", body)
-    .then((response => {
-      history.push('/redezVousList')
-    }).catch(error => {
-        console.log(error)
-      
-    }))
-  }
-
-
-  const getallAppointements =  async () =>{
-    await  axios.get("http://localhost:8080/rendezvous")
+  AppointementService.denyAppointement(body);
+  history('/doctor');
+  
    
-     .then((response => {
-      setAllAppointements(response.data);
-       console.log(response);
-      
-     })
-     ).catch((e)=> console.log(e));
-   }
-   
-   useEffect(()=>{
-    getallAppointements();
-  },[]);
+  }
+
+
+  
   
   
 
@@ -78,6 +73,11 @@ export default function RendezVous() {
 
   
   return (
+    <div>
+      <Topbar/>
+      <div className="homePatient">
+        <Sidbar/>
+      
     <div className="rendezVousList">
       
        <div className='row'>
@@ -99,17 +99,16 @@ export default function RendezVous() {
                                 allAppointements.map(
                                    appointement =>
                                     <tr key={appointement.email}>
-                                      <td><img src="/profil.jpeg" alt="" className="patientListImage" /></td>
+                                      <td><img src={doc} alt="" className="patientListImage" /></td>
                                         <td>{appointement.nom}  </td>
                                         <td>{appointement.prenom}</td>
                                         <td>{appointement.date}</td>
                                         <td>
                                         <div className="actionsButtons">
          
-          <button className="acceptButton" onClick = {() => {isConfirmedField(appointement);
-           window.location.reload(false)}} >Accept</button>
+          <button className="acceptButton" onClick = {() => {isConfirmedField(appointement);}} >Accept</button>
           <button className="refuseButton" onClick = {() => {isNotConfirmedField(appointement);
-           window.location.reload(false)}}>Refuse</button>
+          }}>Refuse</button>
 
           </div>
                                         </td>
@@ -123,6 +122,8 @@ export default function RendezVous() {
                         </table>
 </div>
     
+    </div>
+    </div>
     </div>
     
   )

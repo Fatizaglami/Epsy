@@ -37,7 +37,6 @@ public interface PatientRepo extends JpaRepository<Patient,String> {
     @Query(nativeQuery = true, value="call getPatientGrowthByDoctor(:idDoctor);")
     List<IGrowthPercentage> getPatientGrowthByDoctor(String idDoctor);
 
-    Optional<Patient>  findPatientByEmail(String id);
-    Optional<Patient> deletePatientByEmail(String id);
+    List<Patient> findPatientByEmail(@Param("email") String idPatient);
 
 }

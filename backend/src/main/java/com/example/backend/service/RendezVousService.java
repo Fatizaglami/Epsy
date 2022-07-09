@@ -32,7 +32,14 @@ public class RendezVousService {
     }
 
     public List<IGrowthPercentage> getAppointmentGrowthByDoctor(String idDoctor){
-        return rendezVousRepo.getAppointmentGrowthByDoctor(idDoctor);
+        List<IGrowthPercentage> growth = rendezVousRepo.getAppointmentGrowthByDoctor(idDoctor);
+        if(growth.get(0)==null) {
+            Percentage percentage = new Percentage();
+            percentage.setPercentage(BigDecimal.valueOf(0));
+            growth.clear();
+            growth.add(percentage);
+        }
+        return growth;
     }
 
     public List<ICount> getInvitationCountByDoctor(String idDoctor){
@@ -40,7 +47,14 @@ public class RendezVousService {
     }
 
     public List<IGrowthPercentage> getInvitationGrowthByDoctor(String idDoctor){
-        return rendezVousRepo.getInvitationGrowthByDoctor(idDoctor);
+        List<IGrowthPercentage> growth = rendezVousRepo.getInvitationGrowthByDoctor(idDoctor);
+        if(growth.get(0)==null) {
+            Percentage percentage = new Percentage();
+            percentage.setPercentage(BigDecimal.valueOf(0));
+            growth.clear();
+            growth.add(percentage);
+        }
+        return growth;
     }
 
     public List<IAppointment> getLatestAppointmentByDoctor(String idDoctor){

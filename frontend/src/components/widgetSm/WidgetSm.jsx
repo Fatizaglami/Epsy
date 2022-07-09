@@ -4,7 +4,6 @@ import {Visibility} from "@material-ui/icons"
 import doc from "../../assets/doc.jpg"
 import {useEffect, useState} from 'react';
 import PatientService from '../../services/PatientService';
-import axios from "axios"
 
 export default function WidgetSm() {
     const [newJoined, setNewJoined]=useState([]);

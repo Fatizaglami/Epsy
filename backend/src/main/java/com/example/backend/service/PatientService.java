@@ -1,10 +1,7 @@
 package com.example.backend.service;
 
 
-import com.example.backend.model.ICount;
-import com.example.backend.model.IGrowthPercentage;
-import com.example.backend.model.IPatientCountChartPoint;
-import com.example.backend.model.Patient;
+import com.example.backend.model.*;
 import com.example.backend.repository.PatientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +53,14 @@ public class PatientService {
     }
 
     public List<IGrowthPercentage> getPatientGrowthByDoctor(String idDoctor){
-        return patientRepo.getPatientGrowthByDoctor(idDoctor);
+        List<IGrowthPercentage> growth= patientRepo.getPatientGrowthByDoctor(idDoctor);
+        if(growth.get(0)==null) {
+            Percentage percentage = new Percentage();
+            percentage.setPercentage(BigDecimal.valueOf(0));
+            growth.clear();
+            growth.add(percentage);
+        }
+        return growth;
     }
 
     public List<Patient> getNewJoinedPatientsByDoctor(String idDoctor){
@@ -65,5 +69,9 @@ public class PatientService {
 
     public List<IPatientCountChartPoint> getPatientCountChartByDoctor(String idDoctor){
         return patientRepo.getPatientCountChartByDoctor(idDoctor);
+    }
+
+    public Patient getProfile(String idPatient){
+        return patientRepo.findPatientByEmail(idPatient).get(0);
     }
 }

@@ -1,50 +1,43 @@
-/*package com.example.backend.model;
+package com.example.backend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity
-@Table(name = "Suivi")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Suivi implements Serializable {
+@Table(name = "suivi")
+public class Suivi {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @NotEmpty(message = "titre cannot be empty!!")
-    @Column(nullable = false)
-    private String titre;
-    @NotEmpty(message = "sommeil cannot be empty!!")
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "sommeil")
     private String sommeil;
-    @NotEmpty(message = "stress cannot be empty!!")
-    @Column(nullable = false)
+
+    @Column(name = "stress")
     private String stress;
-    @NotEmpty(message = "fatigue cannot be empty!!")
-    @Column(nullable = false)
+
+    @Column(name ="fatigue")
     private String fatigue;
-    @NotEmpty(message = "tristesse cannot be empty!!")
-    @Column(nullable = false)
+
+    @Column(name = "tristesse")
     private String tristesse;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @NonNull
+    private Patient patient;
 
-
-    public Suivi( String titre, String sommeil, String stress,String fatigue, String tristesse) {
-        this.titre = titre;
-        this.sommeil = sommeil;
-        this.stress = stress;
-        this.fatigue = fatigue;
-        this.tristesse = tristesse;
-
-
-    }
-}*/
+}

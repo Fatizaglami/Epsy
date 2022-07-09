@@ -25,3 +25,43 @@ a:link
   display: flex;
   margin-top: 10px;
 }
+html {
+  /* this makes sure the padding and the border is included in the box sizing */
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+.formcs{
+  width: 80%;
+  height: 25%;
+ 
+}
+
+.scroll{
+  overflow-y: hidden;
+    /* Hide vertical scrollbar */
+    overflow-x: hidden;
+}
+
+.mt-0 {
+margin-top: 5rem !important;
+}
+
+
+.cardT {
+text-align: center;
+color: brown;
+font-size: 30px !important
+}
+
+.cardTx{
+font-family: 'Courier New', Courier, monospace;
+
+}
+
+.hAbout {
+text-align: center;
+font-family: 'Courier New', Courier, monospace;
+font-weight: lighter;
+color: brown;
+
+}

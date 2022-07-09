@@ -1,39 +1,68 @@
-/*package com.example.backend.controller;
+package com.example.backend.controller;
 
-import com.example.backend.model.Suivi;
-import com.example.backend.service.ISuiviService;
+import com.example.backend.model.*;
+import com.example.backend.repository.SuiviRepo;
+import com.example.backend.service.SuiviService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
+
 
 @CrossOrigin("*" )
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping("/api/suivi")
 public class SuiviController {
-    private final ISuiviService suivitService;
 
-    public SuiviController(ISuiviService suivitService) {
-        this.suivitService = suivitService;
+    @Autowired
+    private SuiviRepo suiviRepo;
+
+    @Autowired
+    private SuiviService service;
+
+    @PostMapping
+    public void addSuivi(@RequestBody Assesement suivi, Authentication auth ){
+
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idPatient = user.getUsername();
+        suivi.setIdPatient(idPatient);
+
+         suiviRepo.assesement(
+
+                suivi.getFatigue(),
+                suivi.getSommeil(),
+                suivi.getStress(),
+                suivi.getTristesse(),
+                suivi.getIdPatient());
     }
 
-    @GetMapping("/suivis/{suivitId}")
-    public Suivi getSuivi(@PathVariable Long suivitId) {
-        return suivitService.getSuivi(suivitId);
+    @GetMapping("/getsuivi")
+    List<Suivi> getSuivi(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idPatient = user.getUsername();
+        return service.getSuivi(idPatient);
     }
 
-    @PostMapping("/suivis")
-    public Suivi addSuivi(@RequestBody @Valid Suivi suivit) {
-        return suivitService.addSuivi(suivit);
+    @GetMapping("/gettristesse")
+    List<ISuivi> getTristesse(@RequestParam("email") String email,Authentication auth){
+        System.out.println("email"+email);
+        return service.getTristesse(email);
     }
 
-    @PutMapping("/suivis/{suivitId}")
-    public Suivi updateSuivi(@RequestBody Suivi suivit, @PathVariable Long suivitId) {
-        return suivitService.updateSuivi(suivit, suivitId);
+    @GetMapping("/getsommeil")
+    List<ISuivi> getSommeil(@RequestParam("email") String email,Authentication auth){
+        return service.getSommeil(email);
     }
 
-    @DeleteMapping("/suivits/{suivitId}")
-    void deleteSuivi(@PathVariable Long suivitId) {
-        suivitService.deleteSuivi(suivitId);
+    @GetMapping("/getstress")
+    List<ISuivi> getStress(@RequestParam("email") String email,Authentication auth){
+        return service.getStress(email);
     }
+
+    @GetMapping("/getfatigue")
+    List<ISuivi> getFatigue(@RequestParam("email") String email,Authentication auth){
+        return service.getFatigue(email);
+    }
+
 }
-*/

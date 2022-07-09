@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorMessage, useField } from 'formik';
 
-export const TextField = ({ handleChange,type ,value, label, ...props }) => {
+export const TextField = ({ handleChange,type ,value, label,placeholder, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
@@ -9,7 +9,8 @@ export const TextField = ({ handleChange,type ,value, label, ...props }) => {
       <label htmlFor={field.name}>{label}</label>
       <input
         className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
-       {...field}  type={type}
+       {...field}  type={type}  placeholder={placeholder}
+
         autoComplete="off"
       />
       <ErrorMessage component="div" name={field.name} className="error" />

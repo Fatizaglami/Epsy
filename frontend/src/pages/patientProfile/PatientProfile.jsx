@@ -1,16 +1,25 @@
 import React from 'react'
 import "./patientProfile.css"
+import "../../components/patienthome.css"
 import {PermIdentity, AlternateEmail, LocalPhone ,Wc , CalendarToday } from "@material-ui/icons" 
 import {useEffect, useState} from 'react'
 import axios from "axios"
+import doc from "../../assets/doc.jpg"
 import { useNavigate, useParams} from "react-router-dom";
+import PatientService from '../../services/PatientService'
+import Topbar from '../../components/topbar/Topbar'
+import Sidbar from '../../components/sidbar/Sidbar'
+import Analytics from '../Analytics/Analytics'
+import AnalyticsStress from '../Analytics/AnalyticsStress'
+import AnalyticsFatigue from '../Analytics/AnalyticsFatigue'
+import AnalyticsSommeil from '../Analytics/AnalyticsSommeil'
 
 export default function PatientProfile() {
   const [nom, setNom] = useState('')
   const [prenom, setPrenom] = useState('')
   const [cin, setCin] = useState('')
   const [tel, setTel] = useState('')
-  const [date_naissance, setDateNaissance] = useState('')
+  const [dateNaissance, setDateNaissance] = useState('')
   const [sex, setSex] = useState('')
   const [situation, setSituation] = useState('')
   
@@ -19,16 +28,19 @@ export default function PatientProfile() {
   console.log(email)
 
   const [patients, setPatients]=useState([]);
-  const getPatientInfos =  async () =>{
-   await  axios.get("http://localhost:8080/"+ email)
-  
-    .then((response => {
+  useEffect(() => {
+
+    getPatients();
+}, [])
+
+const getPatients = () => {
+    PatientService.getPatientById(email) .then((response => {
       setNom(response.data.nom)
       setPrenom(response.data.prenom)
       
       setTel(response.data.tel)
       setCin(response.data.cin)
-      setDateNaissance(response.data.date_naissance)
+      setDateNaissance(response.data.dateNaissance)
       setSex(response.data.sex)
       setSituation(response.data.situation)
       
@@ -37,15 +49,21 @@ export default function PatientProfile() {
     })
     ).catch((e)=> console.log(e));
   }
-  useEffect(()=>{
-    getPatientInfos();
-  },[]);
+  
 
 
 
 
 
   return (
+    <div>
+      <Topbar/>
+      <div className="homePatient">
+        <div>
+        <Sidbar/>
+        </div>
+       
+      
     <div className="patientProfile">
       <div className="patientTitleContainer">
         <h1 className="patientTitle">Patient's Profile</h1>
@@ -53,7 +71,7 @@ export default function PatientProfile() {
       <div className="patientContainer">
         <div className="patientShow">
           <div className="patientShowTop">
-            <img src="/profil.jpeg" alt=""  className="patientShowImg"/>
+            <img src={doc} alt=""  className="patientShowImg"/>
 
             <div className="patientShowTopTitle">
               <span className="patientShowUserName">{prenom} {nom}</span>
@@ -75,7 +93,7 @@ export default function PatientProfile() {
           </div>
           <div className="patientShowInfo">
           <CalendarToday className="patientShowIcon" />
-          <span className="patientShowInfoTitle"> {date_naissance}</span>
+          <span className="patientShowInfoTitle"> {dateNaissance}</span>
           </div>
           <div className="patientShowInfo">
           <Wc className="patientShowIcon" />
@@ -93,6 +111,39 @@ export default function PatientProfile() {
 
         </div>
       </div>
+      <div className="patientTitleContainer">
+        <h1 className="patientTitle">Patient's Analytics</h1>
+      </div>
+      <div className="patientTitleContainer">
+        <h5 className="patientTitle">Tristesse</h5>
+      </div>
+      
+      <div>
+      <Analytics/>
+    </div>
+    <div className="patientTitleContainer">
+        <h5 className="patientTitle">Stress</h5>
+      </div>
+    <div>
+      <AnalyticsStress/>
+    </div>
+    <div className="patientTitleContainer">
+        <h5 className="patientTitle">Fatigue</h5>
+      </div>
+    <div>
+      <AnalyticsFatigue/>
+    </div>
+    <div className="patientTitleContainer">
+        <h5 className="patientTitle">Sommeil</h5>
+      </div>
+    <div>
+      <AnalyticsSommeil/>
+    </div>
+    </div>
+
+   
+    </div>
+    
     </div>
   )
 }

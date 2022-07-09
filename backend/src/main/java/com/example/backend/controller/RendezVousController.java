@@ -67,17 +67,26 @@ public class RendezVousController {
     }
 
     @PostMapping("/denyappointment")
-    public void denyAppointment(@RequestBody Appointment appointment){
+    public void denyAppointment(@RequestBody Appointment appointment, Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        appointment.setIdDoctor(idDoctor);
         service.denyAppointment(appointment);
     }
 
     @PostMapping("/acceptappointment")
-    public void acceptAppointment(@RequestBody Appointment appointment){
+    public void acceptAppointment(@RequestBody Appointment appointment,Authentication auth){
+
+        System.out.println(appointment.getDate()+' '+ appointment.getIdPatient() +' '+ appointment.getIdDoctor());
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idDoctor = user.getUsername();
+        appointment.setIdDoctor(idDoctor);
         service.acceptAppointment(appointment);
     }
 
     @PostMapping("/sendAppointmentRequest")
     public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment, Authentication auth){
+        System.out.println("ana hna ghansiftha likom ");
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
         String idPatient = user.getUsername();
         appointment.setIdPatient(idPatient);

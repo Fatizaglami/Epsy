@@ -21,35 +21,35 @@ public class Patient {
     @NonNull
     private String email;
 
-    @Column(name="nom")
+    @Column(name = "nom")
     @NonNull
     private String nom;
 
-    @Column(name="prenom")
+    @Column(name = "prenom")
     @NonNull
     private String prenom;
 
-    @Column(name="tel")
+    @Column(name = "tel")
     @NonNull
     private String tel;
 
-    @Column(name="password")
+    @Column(name = "password")
     @NonNull
     private String password;
 
-    @Column(name="sex")
+    @Column(name = "sex")
     @NonNull
     private String sex;
 
-    @Column(name="date_naissance")
+    @Column(name = "date_naissance")
     @NonNull
     private String dateNaissance;
 
-    @Column(name="situation")
+    @Column(name = "situation")
     @NonNull
     private String situation;
 
-    @Column(name="cin")
+    @Column(name = "cin")
     @NonNull
     private String cin;
 
@@ -61,31 +61,8 @@ public class Patient {
     @JsonIgnore
     private List<RendezVous> rendezVous;
 
-   /* yahya's part*/
-   /*@OneToMany(
-            targetEntity = Suivi.class,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-            name = "patient_id",
-            referencedColumnName = "id"
-    )
-    private Set<Suivi> suivis;
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
+    private List<Suivi> suivi;
 
-
-
-    @OneToMany(
-            targetEntity = Doctor.class,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn
-            (
-                    name = "patient_id",
-                    referencedColumnName = "id"
-            )
-    private Set<Doctor> doctors;*/
 }

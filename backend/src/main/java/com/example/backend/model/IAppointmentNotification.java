@@ -7,4 +7,6 @@ public interface IAppointmentNotification {
     Date getDate();
     String getNom();
     String getPrenom();
+    String getIdPatient();
+    String getIdDoctor();
 }

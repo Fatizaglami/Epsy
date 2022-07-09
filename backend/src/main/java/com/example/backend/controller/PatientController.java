@@ -8,6 +8,7 @@ import com.example.backend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,8 @@ public class PatientController {
     PatientService service;
     @Autowired
     PatientRepo patientRepo;
+    @Autowired
+    private PasswordEncoder encoder;
 
    // private final IPatientService patientService;
 
@@ -94,7 +97,10 @@ public class PatientController {
     //add patient
     @PostMapping
     public Patient addPatient(@RequestBody Patient patient){
-        return patientRepo.save(patient);
+        Patient savedPatient = patient;
+        String newpassword = encoder.encode(patient.getPassword());
+        savedPatient.setPassword(newpassword);
+        return patientRepo.save(savedPatient);
     }
 
     //get patient by email
@@ -132,24 +138,11 @@ public class PatientController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-   /* @GetMapping("/patients/{patientId}")
-    public Patient getPatient(@PathVariable String patientId) {
-        return patientService.getPatient(patientId);
-    }
 
-    @PutMapping("/patients/{patientId}")
-    public Patient updatePatient(@RequestBody @Valid Patient patient, @PathVariable String patientId) {
-        return patientService.updatePatient(patient, patientId);
+    @RequestMapping("/profile")
+    public Patient getProfile(Authentication auth){
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        String idPatient = user.getUsername();
+        return service.getProfile(idPatient);
     }
-    // Get all suivi for patient
-    @GetMapping("/patients/{patientId}/suivis")
-    public List<Suivi> getAllSuivis(@PathVariable String patientId) {
-        return patientService.getAllSuivis(patientId);
-    }
-
-    // get Doctors for patient
-    @GetMapping("/patients/{patientId}/doctors")
-    public List<Doctor> getAllDoctors(@PathVariable String patientId) {
-        return patientService.getAllDoctors(patientId);
-    }*/
 }
