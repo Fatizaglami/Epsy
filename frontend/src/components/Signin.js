@@ -41,7 +41,9 @@ export const Signin = () => {
         setMsgError("Email or password is incorrect");
       });*/
     try {
-      const rest = await axios.get("http://localhost:8080/user/home", {
+      const hone =`${process.env.REACT_APP_LINK}/user/home`
+      console.log("URL"+ hone)
+      const rest = await axios.get(hone, {
         auth: {
           username: values.username,
           password: values.password,

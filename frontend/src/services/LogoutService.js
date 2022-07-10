@@ -3,7 +3,7 @@ import axios from "axios";
 class LogoutService{
 
     logout(){
-        return axios.get("http://localhost:8080/logout")
+        return axios.get(`${process.env.REACT_APP_LINK}/logout`)
     }
 
 }

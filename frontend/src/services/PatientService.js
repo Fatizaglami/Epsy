@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PATIENT_API_BASE_URL ="http://localhost:8080/patients"
+const PATIENT_API_BASE_URL =`${process.env.REACT_APP_LINK}/patients`
 class PatientService {
 
     getPatients(){
@@ -27,10 +27,10 @@ class PatientService {
 
     getNewMembers(){
         
-        return axios.get('http://localhost:8080/patients/newpatients').catch((error)=>console.log("axios err" + error));
+        return axios.get(PATIENT_API_BASE_URL+'/patients/newpatients').catch((error)=>console.log("axios err" + error));
     }
     getPatientsCount(){
-        return axios.get("http://localhost:8080/patients/patientcount").catch((error)=>console.log("get pat err" + error));
+        return axios.get(PATIENT_API_BASE_URL+"/patients/patientcount").catch((error)=>console.log("get pat err" + error));
     }
 }
 

@@ -47,7 +47,7 @@ export const Signup = () => {
         
     console.log(data);
     
-        axios.post("http://localhost:8080/user/register",data)
+        axios.post(`${process.env.REACT_APP_LINK}/user/register`,data)
         .then(response => {
         if(response.data!=null){
           history('/Login');
