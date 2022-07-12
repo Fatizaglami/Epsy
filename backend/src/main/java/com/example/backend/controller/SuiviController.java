@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin("*" )
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/suivi")
 public class SuiviController {
@@ -52,11 +52,14 @@ public class SuiviController {
 
     @GetMapping("/getsommeil")
     List<ISuivi> getSommeil(@RequestParam("email") String email,Authentication auth){
+
         return service.getSommeil(email);
     }
 
     @GetMapping("/getstress")
     List<ISuivi> getStress(@RequestParam("email") String email,Authentication auth){
+
+
         return service.getStress(email);
     }
 

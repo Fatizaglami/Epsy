@@ -12,7 +12,7 @@ const Card = props =>{
         <div className='card-body text-dark'>
             <h4 className='card-title'>{props.title}</h4>
             <p className='card-text text-secondary'>{props.text} </p>
-            <a href={props.lien} className='btn btn-outline-warning'>Go away</a>
+            <a href={props.lien} className='btn btn-outline-warning'>See more</a>
 
         </div>
  

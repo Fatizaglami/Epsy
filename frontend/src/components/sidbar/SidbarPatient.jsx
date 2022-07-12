@@ -1,10 +1,13 @@
 import React from 'react'
 import "./sidbar.css"
-import {LineStyle, Timeline, InsertInvitation, NotificationsActive, People, Report, AccountCircle, Assignment, Email, Message, Feedback} from "@material-ui/icons"
+import {LineStyle, InsertInvitation,  AccountCircle, } from "@material-ui/icons"
 import {Link} from "react-router-dom";
 import { Logout } from '@mui/icons-material';
-import LogoutService from '../../services/LogoutService';
+
 export default function SidbarPatient() {
+  
+
+
   return (
     <div className='sidebar'>
       <div className="sidebarWrapper">
@@ -47,43 +50,17 @@ export default function SidbarPatient() {
                 
             </ul>
         </div>
-        <div className="sidebarMenu">
-            <h3 className="sidebarTitle">Notifications</h3>
-            <ul className="sidebarList">
-                <li className="sidebarListItem">
-                  <Email className="sidebarIcon"/>
-                  Email
-                </li>
-                <li className="sidebarListItem">
-                  <Message className="sidebarIcon"/>
-                  Message
-                </li>
-                <li className="sidebarListItem">
-                  <Feedback className="sidebarIcon"/>
-                  Feedback
-                </li>
-                
-            </ul>
-        </div>
+        
         <div className="sidebarMenu">
             <h3 className="sidebarTitle">Staff</h3>
             <ul className="sidebarList">
-                <li className="sidebarListItem">
-                  <Assignment className="sidebarIcon"/>
-                  Manage
-                </li>
-                <li className="sidebarListItem">
-                  <Timeline className="sidebarIcon"/>
-                  Analytics
-                </li>
-                <li className="sidebarListItem">
-                  <Report className="sidebarIcon"/>
-                  Reports
-                </li>
-                <Link to="/" onClick={LogoutService.logout()}>
+                
+               
+            <Link to='/'>
                 <li className="sidebarListItem">
                   <Logout className="sidebarIcon"/>
                   Logout
+                  
                 </li></Link>
                 
             </ul>

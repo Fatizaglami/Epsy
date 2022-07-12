@@ -22,9 +22,7 @@ class DoctorService {
     
     }
 
-    searchDoctor(name){
-        return axios.get(DOCTOR_API_BASE_URL+'/name/'+name);
-    }
+    
 }
 
 export default new DoctorService()

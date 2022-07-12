@@ -27,10 +27,10 @@ class PatientService {
 
     getNewMembers(){
         
-        return axios.get(PATIENT_API_BASE_URL+'/patients/newpatients').catch((error)=>console.log("axios err" + error));
+        return axios.get(PATIENT_API_BASE_URL+'/newpatients').catch((error)=>console.log("axios err" + error));
     }
     getPatientsCount(){
-        return axios.get(PATIENT_API_BASE_URL+"/patients/patientcount").catch((error)=>console.log("get pat err" + error));
+        return axios.get(PATIENT_API_BASE_URL+"/patientcount").catch((error)=>console.log("get pat err" + error));
     }
 }
 

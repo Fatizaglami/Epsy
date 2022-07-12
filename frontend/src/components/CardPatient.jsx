@@ -7,21 +7,11 @@ import DoctorService from '../services/DoctorService';
 
 
 export default function CardPatient() {
-    const [name, setName] =useState('hiba');
-    const [prenom, setPrenom]= useState("your first name");
-    const [email, setEmail]= useState("your email");
-    const [specialite, setSpecialite]= useState("your speciality");
+    
     const [doctors, setDoctors] = useState([])
-    const history = useNavigate();
+    
 
-    useEffect(() => {
-
-        DoctorService.searchDoctor(name).then((response) =>{
-            setName(response.data.name)}).catch(error => { 
-                console.log(error)
-            })
-        }, [])
-
+    
     useEffect(() => {
 
        
@@ -36,21 +26,7 @@ export default function CardPatient() {
             console.log(error);
         })
     }
-    const searchDoctorByName = (e) => {
-        e.preventDefault();
-
-       const name ={name};
-
-        console.log(name);
-            DoctorService.searchDoctor(name).then((response) => {
-                history('/patient')
-            }).catch(error => {
-                console.log(error)
-            })
-
-        
-        
-    }
+    
   return (
     <div>
     <div className="search">
